@@ -13,7 +13,9 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+console.log(import.meta.env.VITE_BASE_URL);
+</script>
 
 <style scoped>
 header {
