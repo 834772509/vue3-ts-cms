@@ -3,6 +3,8 @@ import App from "./App.vue";
 import router from "./router";
 import pinia from "./store";
 import request from "./service/";
+import "normalize.css";
+import "./assets/css/index.less";
 
 const app = createApp(App);
 
@@ -16,7 +18,7 @@ console.log(import.meta.env.VITE_BASE_URL);
 request
   .get({
     url: "/get",
-    showLoading: true
+    showLoading: false
   })
   .then((res) => {
     console.log(res);
