@@ -18,6 +18,7 @@
 
 <script setup lang="ts">
 import { reactive } from "vue";
+import useLoginStore from "@/stores/login";
 
 const rules = {
   number: [
@@ -45,15 +46,21 @@ const rules = {
     }
   ]
 };
-
 const phone = reactive({
   number: "",
   code: ""
 });
+const loginStore = useLoginStore();
 
 function btn_getcode() {
   console.log("获取验证码");
 }
+
+function loginAction(isKeepPassword: boolean) {
+  loginStore.phoneLoginAction(isKeepPassword);
+}
+
+defineExpose({ loginAction });
 </script>
 
 <style lang="less" scoped>

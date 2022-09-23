@@ -1,9 +1,9 @@
 <template>
   <div class="login-penel">
     <h2 class="title">后台管理系统</h2>
-    <el-tabs type="border-card" stretch>
+    <el-tabs type="border-card" v-model="currentTab" stretch>
       <!-- 账号登录 -->
-      <el-tab-pane>
+      <el-tab-pane name="account">
         <template #label>
           <span class="custom-tabs-label">
             <el-icon><UserFilled /></el-icon>
@@ -13,14 +13,14 @@
         <loginAccount ref="accountRef" />
       </el-tab-pane>
       <!-- 手机登录 -->
-      <el-tab-pane>
+      <el-tab-pane name="phone">
         <template #label>
           <span class="custom-tabs-label">
             <el-icon><Iphone /></el-icon>
             <span>手机登录</span>
           </span>
         </template>
-        <loginPhone />
+        <loginPhone ref="phoneRef" />
       </el-tab-pane>
     </el-tabs>
     <div class="account-control">
@@ -39,11 +39,19 @@ import { ref } from "vue";
 import loginAccount from "./login-account.vue";
 import loginPhone from "./login-phone.vue";
 
+// 定义属性
 const isKeepPassword = ref(true);
 const accountRef = ref();
+const phoneRef = ref();
+const currentTab = ref("account");
 
+// 定义方法
 function handleLoginClick() {
-  accountRef.value?.loginAction(isKeepPassword.value);
+  if (currentTab.value === "account") {
+    accountRef.value?.loginAction(isKeepPassword.value);
+  } else {
+    phoneRef.value?.loginAction(isKeepPassword.value);
+  }
 }
 </script>
 

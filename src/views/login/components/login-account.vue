@@ -16,6 +16,7 @@ import { ref, reactive, defineExpose } from "vue";
 import { ElForm } from "element-plus";
 import { ElMessageBox } from "element-plus";
 import localCache from "@/utils/cache";
+import useLoginStore from "@/stores/login";
 
 const rules = {
   name: [
@@ -43,16 +44,14 @@ const rules = {
     }
   ]
 };
-
 const formRef = ref<InstanceType<typeof ElForm>>();
-
 const account = reactive({
   name: localCache.getCache("name") ?? "",
   password: localCache.getCache("password") ?? ""
 });
+const loginStore = useLoginStore();
 
 function loginAction(isKeepPassword: boolean) {
-  console.log("account正在开始登录");
   formRef.value?.validate((valid) => {
     if (!valid) {
       ElMessageBox.alert("请输入正确的账号与密码", "提示", {});
@@ -69,6 +68,7 @@ function loginAction(isKeepPassword: boolean) {
     }
 
     // 2.开始进行登录验证
+    loginStore.accountLoginAction({ ...account });
   });
 }
 
