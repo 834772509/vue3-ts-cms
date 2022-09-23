@@ -1,13 +1,43 @@
 import { defineStore } from "pinia";
+import {
+  accountLoginRequest,
+  requestUserInfoById,
+  requestUserMenusByRoleId
+} from "@/service/login/login";
+import type { IAccount } from "@/service/login/type";
+import localCache from "@/utils/cache";
+import router from "@/router";
 
 const useLoginStore = defineStore("loginStore", {
   state: () => ({
     token: "",
-    userInfo: {}
+    userInfo: {},
+    userMenus: []
   }),
   actions: {
-    accountLoginAction(payload: any) {
-      console.log("执行accountLoginAction", payload);
+    async accountLoginAction(payload: IAccount) {
+      // 1.实现登录逻辑
+      const loginResult = await accountLoginRequest(payload);
+      const { id, token } = loginResult.data;
+      this.token = token;
+      localCache.setCache("token", token);
+
+      // 2.请求用户信息
+      const userInfoResult: any = await requestUserInfoById(id);
+      const userInfo = userInfoResult.data;
+      this.userInfo = userInfo;
+      localCache.setCache("userInfo", userInfo);
+
+      // 3.请求用户菜单
+      const userMenusResult: any = await requestUserMenusByRoleId(
+        userInfo.role.id
+      );
+      const userMenus = userMenusResult.data;
+      this.userMenus = userMenus;
+      localCache.setCache("userMenus", userMenus);
+
+      // 4. 跳转到首页
+      router.push("/main");
     },
     phoneLoginAction(payload: any) {
       console.log("执行phoneLoginAction", payload);

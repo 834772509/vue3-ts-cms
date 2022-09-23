@@ -38,16 +38,16 @@ const rules = {
       trigger: "blur"
     },
     {
-      pattern: /^[a-z0-9]{8,}$/,
-      message: "密码必须是8位以上的字母或数字",
+      pattern: /^[a-z0-9]{6,}$/,
+      message: "密码必须是6位以上的字母或数字",
       trigger: "blur"
     }
   ]
 };
 const formRef = ref<InstanceType<typeof ElForm>>();
 const account = reactive({
-  name: localCache.getCache("name") ?? "",
-  password: localCache.getCache("password") ?? ""
+  name: localCache.getCache("name") ?? "coderwhy",
+  password: localCache.getCache("password") ?? "123456"
 });
 const loginStore = useLoginStore();
 

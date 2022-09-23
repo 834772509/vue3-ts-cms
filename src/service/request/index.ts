@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { AxiosInstance, AxiosRequestConfig } from "axios";
+import type { AxiosInstance } from "axios";
 import type { RequestInterceptors, requestConfig } from "./type";
 import { ElLoading } from "element-plus";
 
@@ -8,7 +8,7 @@ const DEFAULT_LOADING = false;
 class request {
   instance: AxiosInstance;
   interceptors?: RequestInterceptors;
-  showLoading?: boolean;
+  showLoading: boolean;
   loading?: any;
 
   constructor(config: requestConfig) {
@@ -79,12 +79,13 @@ class request {
           if (config.interceptors?.responseInterceptor) {
             res = config.interceptors.responseInterceptor(res);
           }
-          // 2.将showLoading设置true，这样不会运行影响下一个请求
+          // 2.将showLoading设置默认值，这样不会影响下一个请求
           this.showLoading = DEFAULT_LOADING;
+          // 3.将结果resolve返回出去
           resolve(res);
         })
         .catch((err) => {
-          // 将showLoading设置true，这样不会运行影响下一个请求
+          // 将showLoading设置默认值，这样不会影响下一个请求
           this.showLoading = DEFAULT_LOADING;
           reject(err);
         });
