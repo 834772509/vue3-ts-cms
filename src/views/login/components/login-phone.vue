@@ -7,7 +7,9 @@
       <el-form-item label="验证码" required prop="code">
         <div class="code">
           <el-input v-model="phone.code" />
-          <el-button class="btn-getcode" type="primary">获取验证码</el-button>
+          <el-button class="btn-getcode" type="primary" @click="btn_getcode"
+            >获取验证码</el-button
+          >
         </div>
       </el-form-item>
     </el-form>
@@ -48,6 +50,10 @@ const phone = reactive({
   number: "",
   code: ""
 });
+
+function btn_getcode() {
+  console.log("获取验证码");
+}
 </script>
 
 <style lang="less" scoped>

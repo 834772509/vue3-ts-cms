@@ -43,7 +43,7 @@ const isKeepPassword = ref(true);
 const accountRef = ref();
 
 function handleLoginClick() {
-  accountRef.value?.loginAction();
+  accountRef.value?.loginAction(isKeepPassword.value);
 }
 </script>
 
