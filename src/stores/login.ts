@@ -41,6 +41,20 @@ const useLoginStore = defineStore("loginStore", {
     },
     phoneLoginAction(payload: any) {
       console.log("执行phoneLoginAction", payload);
+    },
+    loadLocalLogin() {
+      const token = localCache.getCache("token");
+      if (token) {
+        this.token = token;
+      }
+      const userInfo = localCache.getCache("userInfo");
+      if (userInfo) {
+        this.userInfo = userInfo;
+      }
+      const userMenus = localCache.getCache("userMenus");
+      if (userMenus) {
+        this.userMenus = userMenus;
+      }
     }
   }
 });
