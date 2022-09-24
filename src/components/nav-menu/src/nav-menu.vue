@@ -2,17 +2,18 @@
   <div class="nav-menu">
     <div class="logo">
       <img class="img" src="@/assets/img/logo.svg" alt="" />
-      <span class="title">Vue3后台管理系统</span>
+      <span class="title" v-if="!props.collapse">Vue3后台管理系统</span>
     </div>
     <!-- background-color="#001529" -->
     <!-- text-color="#fff" -->
     <el-menu
       default-active="2"
-      class="el-menu-vertical"
+      class="el-menu"
       background-color="#0c2135"
       text-color="#b7bdc3"
       active-text-color="#0a60bd"
       :unique-opend="true"
+      :collapse="props.collapse"
     >
       <template v-for="item in loginStore.userMenus" :key="item.id">
         <!-- 二级菜单 -->
@@ -24,7 +25,12 @@
             :hide-timeout="100"
           >
             <template #title>
-              <i v-if="item.icon" :class="item.icon"></i>
+              <el-icon>
+                <Monitor v-if="item.icon.indexOf('monitor') != -1" />
+                <Setting v-if="item.icon.indexOf('setting') != -1" />
+                <Goods v-if="item.icon.indexOf('goods') != -1" />
+                <ChatLineRound v-if="item.icon.indexOf('round') != -1" />
+              </el-icon>
               <span>{{ item.name }}</span>
             </template>
             <!-- 遍历二级菜单子菜单 -->
@@ -49,11 +55,22 @@
 </template>
 
 <script lang="ts" setup>
+import {
+  Monitor,
+  Setting,
+  Goods,
+  ChatLineRound
+} from "@element-plus/icons-vue";
 import useLoginStore from "@/stores/login";
 
-const loginStore = useLoginStore();
+const props = defineProps({
+  collapse: {
+    type: Boolean,
+    default: false
+  }
+});
 
-console.log(loginStore.userMenus[0].name);
+const loginStore = useLoginStore();
 </script>
 
 <style lang="less" scoped>
@@ -79,6 +96,10 @@ console.log(loginStore.userMenus[0].name);
       font-weight: 700;
       color: white;
     }
+  }
+
+  .el-menu {
+    border-right: none;
   }
 }
 </style>
