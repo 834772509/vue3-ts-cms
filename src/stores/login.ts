@@ -12,7 +12,7 @@ const useLoginStore = defineStore("loginStore", {
   state: () => ({
     token: "",
     userInfo: {},
-    userMenus: []
+    userMenus: [] as any[]
   }),
   actions: {
     async accountLoginAction(payload: IAccount) {
