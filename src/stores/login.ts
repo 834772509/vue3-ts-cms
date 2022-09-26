@@ -7,12 +7,24 @@ import {
 import type { IAccount } from "@/service/login/type";
 import localCache from "@/utils/cache";
 import router from "@/router";
+import { mapMenusToRouters } from "@/utils/map-menus";
 
 const useLoginStore = defineStore("loginStore", {
   state: () => ({
     token: "",
     userInfo: {},
-    userMenus: [] as any[]
+    _userMenus: [] as any[],
+    get userMenus() {
+      return this._userMenus;
+    },
+    set userMenus(value) {
+      mapMenusToRouters(value).then((routes) => {
+        routes.forEach((route) => {
+          router.addRoute("main", route);
+        });
+      });
+      this._userMenus = value;
+    }
   }),
   actions: {
     async accountLoginAction(payload: IAccount) {

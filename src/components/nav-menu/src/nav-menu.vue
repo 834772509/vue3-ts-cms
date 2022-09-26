@@ -4,8 +4,6 @@
       <img class="img" src="@/assets/img/logo.svg" alt="" />
       <span class="title" v-if="!props.collapse">Vue3后台管理系统</span>
     </div>
-    <!-- background-color="#001529" -->
-    <!-- text-color="#fff" -->
     <el-menu
       default-active="2"
       class="el-menu"
@@ -35,7 +33,10 @@
             </template>
             <!-- 遍历二级菜单子菜单 -->
             <template v-for="subitem in item.children" :key="subitem.id">
-              <el-menu-item :index="subitem.id + ''">
+              <el-menu-item
+                :index="subitem.id + ''"
+                @click="handleMenuItemClick(subitem)"
+              >
                 <i v-if="subitem.icon" :class="subitem.icon"></i>
                 <span>{{ subitem.name }}</span>
               </el-menu-item>
@@ -62,6 +63,7 @@ import {
   ChatLineRound
 } from "@element-plus/icons-vue";
 import useLoginStore from "@/stores/login";
+import { useRouter } from "vue-router";
 
 const props = defineProps({
   collapse: {
@@ -71,6 +73,13 @@ const props = defineProps({
 });
 
 const loginStore = useLoginStore();
+const router = useRouter();
+
+function handleMenuItemClick(item: any) {
+  router.push({
+    path: item.url ?? "/not-found"
+  });
+}
 </script>
 
 <style lang="less" scoped>
