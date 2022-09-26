@@ -6,4 +6,4 @@
 
 <script lang="ts" setup></script>
 
-<style lang="less" scoped>
+<style lang="less" scoped></style>
