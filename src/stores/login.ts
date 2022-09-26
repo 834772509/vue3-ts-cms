@@ -12,7 +12,7 @@ import { mapMenusToRouters } from "@/utils/map-menus";
 const useLoginStore = defineStore("loginStore", {
   state: () => ({
     token: "",
-    userInfo: {},
+    userInfo: {} as any,
     _userMenus: [] as any[],
     get userMenus() {
       return this._userMenus;
