@@ -1,6 +1,8 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import type { RouteRecordRaw } from "vue-router";
 import localCache from "@/utils/cache";
+import { mapMenusToRouters } from "@/utils/map-menus";
+import useLoginStore from "@/stores/login";
 
 const routes: RouteRecordRaw[] = [
   {
@@ -37,6 +39,15 @@ router.beforeEach((to) => {
     if (!token) {
       return "/login";
     }
+
+    const loginStore = useLoginStore();
+    const routes = mapMenusToRouters(loginStore.userMenus);
+
+    routes.then((routes) => {
+      routes.forEach((route) => {
+        router.addRoute("main", route);
+      });
+    });
   }
 });
 

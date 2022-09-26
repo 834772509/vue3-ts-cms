@@ -13,18 +13,7 @@ const useLoginStore = defineStore("loginStore", {
   state: () => ({
     token: "",
     userInfo: {} as any,
-    _userMenus: [] as any[],
-    get userMenus() {
-      return this._userMenus;
-    },
-    set userMenus(value) {
-      mapMenusToRouters(value).then((routes) => {
-        routes.forEach((route) => {
-          router.addRoute("main", route);
-        });
-      });
-      this._userMenus = value;
-    }
+    userMenus: [] as any[]
   }),
   actions: {
     async accountLoginAction(payload: IAccount) {
