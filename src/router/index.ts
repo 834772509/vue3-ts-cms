@@ -8,12 +8,20 @@ const routes: RouteRecordRaw[] = [
     redirect: "/main"
   },
   {
+    name: "main",
     path: "/main",
-    component: () => import("@/views/main/main.vue"!)
+    component: () => import("@/views/main/main.vue"),
+    children: []
   },
   {
+    name: "login",
     path: "/login",
-    component: () => import("@/views/login/login.vue"!)
+    component: () => import("@/views/login/login.vue")
+  },
+  {
+    name: "not-found",
+    path: "/:pathMatch(.*)*",
+    component: () => import("@/views/not-found/not-found.vue")
   }
 ];
 
@@ -22,6 +30,7 @@ const router = createRouter({
   history: createWebHashHistory()
 });
 
+// 导航守卫
 router.beforeEach((to) => {
   if (to.path !== "/login") {
     const token = localCache.getCache("token");
