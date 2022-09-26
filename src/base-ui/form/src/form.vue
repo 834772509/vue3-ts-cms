@@ -1,10 +1,14 @@
 <template>
   <div class="base-form">
-    <el-form label-width="100px">
+    <el-form :labelWidth="props.labelWidth">
       <el-row>
         <template v-for="item in props.formItems" :key="item.label">
-          <el-col :span="8">
-            <el-form-item :label="item.label">
+          <el-col v-bind="colLayout">
+            <el-form-item
+              :label="item.label"
+              :rules="item.rules"
+              :style="props.itemStyle"
+            >
               <template
                 v-if="item.type === 'input' || item.type === 'password'"
               >
@@ -50,8 +54,32 @@ const props = defineProps({
   formItems: {
     type: Array as PropType<IFormItem[]>,
     default: () => []
+  },
+  labelWidth: {
+    type: String,
+    default: "100px"
+  },
+  itemStyle: {
+    type: Object,
+    default: () => ({
+      padding: "10px 40px"
+    })
+  },
+  colLayout: {
+    type: Object,
+    default: () => ({
+      xl: 6,
+      lg: 8,
+      md: 12,
+      sm: 24,
+      xs: 24
+    })
   }
 });
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.base-form {
+  padding-top: 22px;
+}
+</style>
