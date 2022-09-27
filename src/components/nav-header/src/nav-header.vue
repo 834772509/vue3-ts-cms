@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, defineEmits, computed } from "vue";
+import { ref, computed } from "vue";
 import { Fold, Expand } from "@element-plus/icons-vue";
 import userInfo from "./user-info.vue";
 import BaseBreadcrumb, { type IBreadcrumb } from "@/base-ui/breadcrumb";
