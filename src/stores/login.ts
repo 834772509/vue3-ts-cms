@@ -13,7 +13,19 @@ const useLoginStore = defineStore("loginStore", {
   state: () => ({
     token: "",
     userInfo: {} as any,
-    userMenus: [] as any[]
+    _userMenus: [] as any[],
+    get userMenus() {
+      return this._userMenus;
+    },
+    set userMenus(value) {
+      // 注册动态路由
+      const routes = mapMenusToRouters(value);
+      routes.forEach((route) => {
+        router.addRoute("main", route);
+      });
+
+      this._userMenus = value;
+    }
   }),
   actions: {
     async accountLoginAction(payload: IAccount) {

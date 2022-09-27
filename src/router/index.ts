@@ -21,7 +21,7 @@ const routes: RouteRecordRaw[] = [
     component: () => import("@/views/login/login.vue")
   },
   {
-    name: "not-found",
+    name: "notFound",
     path: "/:pathMatch(.*)*",
     component: () => import("@/views/not-found/not-found.vue")
   }
@@ -39,15 +39,6 @@ router.beforeEach((to) => {
     if (!token) {
       return "/login";
     }
-
-    const loginStore = useLoginStore();
-    const routes = mapMenusToRouters(loginStore.userMenus);
-
-    routes.then((routes) => {
-      routes.forEach((route) => {
-        router.addRoute("main", route);
-      });
-    });
   }
 });
 

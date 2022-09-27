@@ -8,8 +8,8 @@ import { setupStores } from "./stores";
 
 const app = createApp(App);
 
-app.use(router);
 app.use(pinia);
 setupStores();
+app.use(router);
 
 app.mount("#app");
