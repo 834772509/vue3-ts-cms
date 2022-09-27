@@ -61,7 +61,7 @@ class request {
     );
   }
 
-  request<T>(config: requestConfig<T>): Promise<T> {
+  request<T = any>(config: requestConfig<T>): Promise<T> {
     return new Promise((resolve, reject) => {
       // 1.单个请求对请求config的处理
       if (config.interceptors?.requestInterceptor) {
@@ -92,19 +92,19 @@ class request {
     });
   }
 
-  get<T>(config: requestConfig<T>): Promise<T> {
+  get<T = any>(config: requestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "GET" });
   }
 
-  post<T>(config: requestConfig<T>): Promise<T> {
+  post<T = any>(config: requestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "POST" });
   }
 
-  delete<T>(config: requestConfig<T>): Promise<T> {
+  delete<T = any>(config: requestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "DELETE" });
   }
 
-  patch<T>(config: requestConfig<T>): Promise<T> {
+  patch<T = any>(config: requestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "PATCH" });
   }
 }

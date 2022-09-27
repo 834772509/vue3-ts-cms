@@ -11,7 +11,7 @@ export default new request({
       // 携带token的拦截
       const token = localCache.getCache("token");
       if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+        config.headers!.Authorization = `Bearer ${token}`;
       }
       return config;
     },
