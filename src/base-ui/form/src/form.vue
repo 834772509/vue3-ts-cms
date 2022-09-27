@@ -23,7 +23,7 @@
                 <el-select
                   :placeholder="item.placeholder"
                   v-bind="item.otherOptions"
-                  v-model="formData[`${item.field}`]"
+                  :modelValue="modelValue[`${item.field}`]"
                   style="width: 100%"
                 >
                   <el-option
@@ -50,11 +50,11 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from "vue";
+import { ref, watch, type PropType } from "vue";
 import type { IFormItem } from "../types";
 
 const props = defineProps({
-  formData: {
+  modelValue: {
     type: Object,
     required: true
   },
@@ -82,6 +82,15 @@ const props = defineProps({
       xs: 24
     })
   }
+});
+
+const emit = defineEmits(["update:modelValue"]);
+const formData = ref({ ...props.modelValue });
+
+watch(formData.value, (newValue) => {
+  emit("update:modelValue", newValue, {
+    deep: true
+  });
 });
 </script>
 

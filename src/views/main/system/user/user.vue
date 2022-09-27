@@ -1,18 +1,18 @@
 <template>
   <div class="user">
     <div class="search">
-      <base-form v-bind="searchFormConfig" :formData="formData" />
+      <base-form v-bind="searchFormConfig" v-model="formData" />
     </div>
     <div class="content"></div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { reactive } from "vue";
+import { ref } from "vue";
 import BaseForm from "@/base-ui/form";
 import { searchFormConfig } from "./config/search.config";
 
-const formData = reactive({
+const formData = ref({
   id: "",
   name: "",
   password: "",
