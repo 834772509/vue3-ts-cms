@@ -5,7 +5,7 @@
       <span class="title" v-if="!props.collapse">Vue3后台管理系统</span>
     </div>
     <el-menu
-      default-active="2"
+      :default-active="defaultValue"
       class="el-menu"
       background-color="#0c2135"
       text-color="#b7bdc3"
@@ -56,6 +56,7 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from "vue";
 import {
   Monitor,
   Setting,
@@ -63,7 +64,8 @@ import {
   ChatLineRound
 } from "@element-plus/icons-vue";
 import useLoginStore from "@/stores/login";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
+import { pathMapToMent } from "@/utils/map-menus";
 
 const props = defineProps({
   collapse: {
@@ -73,7 +75,12 @@ const props = defineProps({
 });
 
 const loginStore = useLoginStore();
+const route = useRoute();
 const router = useRouter();
+
+const currentPath = route.path;
+const menu = pathMapToMent(loginStore.userMenus, currentPath);
+const defaultValue = ref(menu.id + "");
 
 function handleMenuItemClick(item: any) {
   router.push({
