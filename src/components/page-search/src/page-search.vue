@@ -4,7 +4,9 @@
       <template #header><h1 class="header">高级检索</h1></template>
       <template #footer>
         <div class="handle-btns">
-          <el-button type="primary" :icon="Refresh">重置</el-button>
+          <el-button type="primary" :icon="Refresh" @click="handleResetClick"
+            >重置</el-button
+          >
           <el-button type="primary" :icon="Search">搜索</el-button>
         </div>
       </template>
@@ -24,13 +26,17 @@ const props = defineProps({
   }
 });
 
-const formData = ref({
-  id: "",
-  name: "",
-  password: "",
-  sport: "",
-  createTime: ""
-});
+// 双向绑定的数据由配置文件的field来决定
+const formItems = props.searchFormConfig?.formItems ?? [];
+const formOriginData: any = {};
+for (const item of formItems) {
+  formOriginData[item.field] = "";
+}
+const formData = ref(formOriginData);
+
+function handleResetClick() {
+  formData.value = formOriginData;
+}
 </script>
 
 <style scoped>
