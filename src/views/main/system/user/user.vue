@@ -2,7 +2,13 @@
   <div class="user">
     <page-search :searchFormConfig="searchFormConfig" />
     <div class="content">
-      <base-table :listData="systemStore.userList" :propList="propList">
+      <base-table
+        :listData="systemStore.userList"
+        :propList="propList"
+        :showIndexColumn="showIndexColumn"
+        :showSelectColumn="showSelectColumn"
+        @selectionChange="selectionChange"
+      >
         <template #status="scope">
           <el-button
             size="small"
@@ -50,6 +56,12 @@ systemStore.getPageListAction({
     size: 10
   }
 });
+
+const showIndexColumn = true;
+const showSelectColumn = true;
+function selectionChange(value) {
+  console.log(value);
+}
 </script>
 
 <style lang="less" scoped>
