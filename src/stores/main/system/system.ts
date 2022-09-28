@@ -3,9 +3,11 @@ import { getPageListData } from "@/service/main/system/system";
 
 const useSystemStore = defineStore("systemStore", {
   state: () => ({
-    userList: [],
-    userCount: 0,
+    // 用户管理数据
+    usersList: [],
+    usersCount: 0,
 
+    // 角色管理数据
     roleList: [],
     roleCount: 0
   }),
@@ -13,18 +15,7 @@ const useSystemStore = defineStore("systemStore", {
     async getPageListAction(payload: any) {
       // 1.获取pageUrl
       const pageName = payload.pageName;
-      // const pageUrl = `${pageName}/list`;
-      let pageUrl = "";
-      switch (pageName) {
-        case "user":
-          pageUrl = "/users/list";
-          break;
-        case "role":
-          pageUrl = "/role/list";
-          break;
-        default:
-          break;
-      }
+      const pageUrl = `/${pageName}/list`;
 
       // 2.对页面发送请求
       const pageResult = await getPageListData(pageUrl, payload.queryInfo);
@@ -40,14 +31,7 @@ const useSystemStore = defineStore("systemStore", {
   getters: {
     pageListData: (state) => {
       return (pageName: string) => {
-        switch (pageName) {
-          case "user":
-            return state.userList;
-          case "role":
-            return state.roleList;
-          default:
-            return [];
-        }
+        return (state as any)[`${pageName}List`];
       };
     }
   }

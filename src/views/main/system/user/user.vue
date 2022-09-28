@@ -2,7 +2,7 @@
   <div class="user">
     <page-search :searchFormConfig="searchFormConfig" />
     <page-content
-      pageName="user"
+      pageName="users"
       :contentTableConfig="contentTableConfig"
     ></page-content>
   </div>
