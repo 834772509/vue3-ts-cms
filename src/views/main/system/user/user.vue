@@ -3,12 +3,18 @@
     <page-search :searchFormConfig="searchFormConfig" />
     <div class="content">
       <base-table
+        :title="title"
         :listData="systemStore.userList"
         :propList="propList"
         :showIndexColumn="showIndexColumn"
         :showSelectColumn="showSelectColumn"
         @selectionChange="selectionChange"
       >
+        <!-- header中的插槽 -->
+        <template #headerHandler>
+          <el-button type="primary">新建用户</el-button>
+        </template>
+        <!-- 列中的插槽 -->
         <template #status="scope">
           <el-button
             size="small"
@@ -33,6 +39,7 @@
             >
           </div>
         </template>
+        <template #footer></template>
       </base-table>
     </div>
   </div>
@@ -44,6 +51,10 @@ import { searchFormConfig } from "./config/search.config";
 import useSystemStore from "@/stores/main/system/system";
 import BaseTable from "@/base-ui/table";
 import { Delete, Edit } from "@element-plus/icons-vue";
+
+const title = "用户列表";
+const showIndexColumn = true;
+const showSelectColumn = true;
 
 const propList = [
   { prop: "name", label: "用户名", minWidth: "100" },
@@ -74,8 +85,6 @@ systemStore.getPageListAction({
   }
 });
 
-const showIndexColumn = true;
-const showSelectColumn = true;
 function selectionChange(value: any) {
   console.log(value);
 }
