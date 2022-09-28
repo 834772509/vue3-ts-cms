@@ -23,6 +23,16 @@
         <template #updateAt="scope">
           <span>{{ $filters.formatTime(scope.row.updateAt) }}</span>
         </template>
+        <template #action>
+          <div class="action-btns">
+            <el-button type="primary" size="small" :icon="Edit" text
+              >编辑</el-button
+            >
+            <el-button type="primary" size="small" :icon="Delete" text
+              >删除</el-button
+            >
+          </div>
+        </template>
       </base-table>
     </div>
   </div>
@@ -33,6 +43,7 @@ import PageSearch from "@/components/page-search";
 import { searchFormConfig } from "./config/search.config";
 import useSystemStore from "@/stores/main/system/system";
 import BaseTable from "@/base-ui/table";
+import { Delete, Edit } from "@element-plus/icons-vue";
 
 const propList = [
   { prop: "name", label: "用户名", minWidth: "100" },
@@ -45,7 +56,13 @@ const propList = [
     minWidth: "250",
     slotName: "createAt"
   },
-  { prop: "updateAt", label: "更新时间", minWidth: "250", slotName: "updateAt" }
+  {
+    prop: "updateAt",
+    label: "更新时间",
+    minWidth: "250",
+    slotName: "updateAt"
+  },
+  { label: "操作", minWidth: "160", slotName: "action" }
 ];
 
 const systemStore = useSystemStore();
@@ -59,7 +76,7 @@ systemStore.getPageListAction({
 
 const showIndexColumn = true;
 const showSelectColumn = true;
-function selectionChange(value) {
+function selectionChange(value: any) {
   console.log(value);
 }
 </script>
