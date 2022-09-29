@@ -2,7 +2,7 @@ import { ref } from "vue";
 import type PageContent from "@/components/page-content";
 
 export function usePageSearch() {
-  const pageContentRef = ref<InstanceType<typeof PageContent>>();
+  const pageContentRef = ref<InstanceType<typeof PageContent> | null>(null);
 
   const handleResetClick = () => {
     pageContentRef.value?.getPageData();

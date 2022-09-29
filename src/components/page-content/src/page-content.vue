@@ -1,6 +1,11 @@
 <template>
   <div class="page-content">
-    <base-table :listData="dataList" v-bind="props.contentTableConfig">
+    <base-table
+      :listData="dataList"
+      :listCount="dataCount"
+      v-bind="props.contentTableConfig"
+      v-model:page="pageInfo"
+    >
       <!-- header中的插槽 -->
       <template #headerHandler>
         <el-button type="primary">新建用户</el-button>
@@ -36,7 +41,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from "vue";
+import { ref, computed, watch } from "vue";
 import BaseTable from "@/base-ui/table";
 import useSystemStore from "@/stores/main/system/system";
 import { Delete, Edit } from "@element-plus/icons-vue";
@@ -54,13 +59,17 @@ const props = defineProps({
 
 const systemStore = useSystemStore();
 
+// 双向绑定pageInfo
+const pageInfo = ref({ currentPage: 0, pageSize: 10 });
+watch(pageInfo, () => getPageData());
+
 // 发送网络请求
 const getPageData = (formData: any = {}) => {
   systemStore.getPageListAction({
     pageName: props.pageName,
     queryInfo: {
-      offset: 0,
-      size: 10,
+      offset: pageInfo.value.currentPage * pageInfo.value.pageSize,
+      size: pageInfo.value.pageSize,
       ...formData
     }
   });
@@ -70,6 +79,9 @@ getPageData();
 // 从store中获取数据
 const dataList = computed(() =>
   systemStore.pageListData(props.pageName as string)
+);
+const dataCount = computed(() =>
+  systemStore.pageListCount(props.pageName as string)
 );
 
 defineExpose({ getPageData });
