@@ -34,8 +34,12 @@ for (const item of formItems) {
 }
 const formData = ref(formOriginData);
 
+// 重置按钮
 function handleResetClick() {
   formData.value = formOriginData;
+  // for (const key in formOriginData) {
+  //   formData.value[key] = formOriginData[key];
+  // }
 }
 </script>
 
