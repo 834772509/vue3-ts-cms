@@ -7,7 +7,9 @@
           <el-button type="primary" :icon="Refresh" @click="handleResetClick"
             >重置</el-button
           >
-          <el-button type="primary" :icon="Search">搜索</el-button>
+          <el-button type="primary" :icon="Search" @click="handleSearchClick"
+            >搜索</el-button
+          >
         </div>
       </template>
     </base-form>
@@ -26,6 +28,8 @@ const props = defineProps({
   }
 });
 
+const emit = defineEmits(["resetBtnClick", "searchBtnClick"]);
+
 // 双向绑定的数据由配置文件的field来决定
 const formItems = props.searchFormConfig?.formItems ?? [];
 const formOriginData: any = {};
@@ -37,9 +41,17 @@ const formData = ref(formOriginData);
 // 重置按钮
 function handleResetClick() {
   formData.value = formOriginData;
+  emit("resetBtnClick");
+
   // for (const key in formOriginData) {
   //   formData.value[key] = formOriginData[key];
   // }
+}
+
+// 搜索按钮
+function handleSearchClick() {
+  console.log("点击按钮");
+  emit("searchBtnClick", formData.value);
 }
 </script>
 

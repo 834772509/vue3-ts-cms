@@ -53,17 +53,26 @@ const props = defineProps({
 });
 
 const systemStore = useSystemStore();
-systemStore.getPageListAction({
-  pageName: props.pageName,
-  queryInfo: {
-    offset: 0,
-    size: 10
-  }
-});
 
+// 发送网络请求
+const getPageData = (formData: any = {}) => {
+  systemStore.getPageListAction({
+    pageName: props.pageName,
+    queryInfo: {
+      offset: 0,
+      size: 10,
+      ...formData
+    }
+  });
+};
+getPageData();
+
+// 从store中获取数据
 const dataList = computed(() =>
   systemStore.pageListData(props.pageName as string)
 );
+
+defineExpose({ getPageData });
 </script>
 
 <style lang="less" scoped>
