@@ -13,7 +13,11 @@ const useSystemStore = defineStore("systemStore", {
 
     // 商品信息数据
     goodsList: [],
-    goodsCount: 0
+    goodsCount: 0,
+
+    // 菜单管理数据
+    menuList: [],
+    menuCount: 0
   }),
   actions: {
     async getPageListAction(payload: any) {

@@ -8,11 +8,13 @@
         </div>
       </slot>
     </div>
+
     <el-table
       :data="props.listData"
       style="width: 100%"
       min-width="180"
       @selection-change="handleSelectionChange"
+      v-bind="childrenProps"
       border
     >
       <el-table-column
@@ -37,9 +39,11 @@
         </el-table-column>
       </template>
     </el-table>
-    <div class="footer">
+
+    <div class="footer" v-if="showFooter">
       <slot name="footer">
         <el-pagination
+          class="el-pagination"
           :currentPage="props.page.currentPage"
           :page-size="props.page.pageSize"
           :page-sizes="[10, 20, 30, 40]"
@@ -47,6 +51,7 @@
           :total="listCount"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
+          background
         />
       </slot>
     </div>
@@ -88,6 +93,14 @@ const props = defineProps({
   page: {
     type: Object,
     default: () => ({ currentPage: 0, pageSize: 10 })
+  },
+  childrenProps: {
+    type: Object,
+    default: () => ({})
+  },
+  showFooter: {
+    type: Boolean,
+    default: true
   }
 });
 
@@ -129,7 +142,8 @@ function handleSizeChange(pageSize: number) {
   margin-top: 15px;
 
   .el-pagination {
-    text-align: right;
+    display: flex;
+    justify-content: center;
   }
 }
 </style>
