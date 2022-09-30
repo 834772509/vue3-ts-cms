@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "prettier": "prettier --write .",
     "prepare": "husky install",
-    "commit": "cz"
+    "commit": "cz & git push"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.9",
