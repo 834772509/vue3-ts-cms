@@ -6,25 +6,22 @@
       v-bind="props.contentTableConfig"
       v-model:page="pageInfo"
     >
-      <!-- header中的插槽 -->
-      <template #headerHandler>
+      <!-- 1.header中的插槽 -->
+      <template #header>
         <el-button type="primary">新建用户</el-button>
       </template>
-      <!-- 列中的插槽 -->
-      <template #status="scope">
-        <el-button
-          size="small"
-          :type="scope.row.enable ? 'success' : 'danger'"
-          plain
-          >{{ scope.row.enable ? "启用" : "禁用" }}</el-button
-        >
-      </template>
+
+      <!-- 2.列中的插槽 -->
+
+      <!-- 创建时间 -->
       <template #createAt="scope">
         <span>{{ $filters.formatTime(scope.row.createAt) }}</span>
       </template>
+      <!-- 更新时间 -->
       <template #updateAt="scope">
         <span>{{ $filters.formatTime(scope.row.updateAt) }}</span>
       </template>
+      <!-- 操作 -->
       <template #action>
         <div class="action-btns">
           <el-button type="primary" size="small" :icon="Edit" text
@@ -35,6 +32,19 @@
           >
         </div>
       </template>
+
+      <!-- 动态插入其他的插槽 -->
+      <template
+        v-for="item in otherPropSlots"
+        :key="item.prop"
+        #[item.slotName]="scope"
+      >
+        <template v-if="item.slotName">
+          <slot :name="item.slotName" :row="scope.row"></slot>
+        </template>
+      </template>
+
+      <!-- 3.footer中的插槽 -->
       <template #footer></template>
     </base-table>
   </div>
@@ -82,6 +92,17 @@ const dataList = computed(() =>
 );
 const dataCount = computed(() =>
   systemStore.pageListCount(props.pageName as string)
+);
+
+// 获取其他的动态插槽
+const otherPropSlots = props?.contentTableConfig?.propList.filter(
+  (item: any) => {
+    if (item.slotName === "createAt") return false;
+    if (item.slotName === "updateAt") return false;
+    if (item.slotName === "header") return false;
+    if (item.slotName === "action") return false;
+    return true;
+  }
 );
 
 defineExpose({ getPageData });

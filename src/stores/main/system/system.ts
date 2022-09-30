@@ -9,7 +9,11 @@ const useSystemStore = defineStore("systemStore", {
 
     // 角色管理数据
     roleList: [],
-    roleCount: 0
+    roleCount: 0,
+
+    // 商品信息数据
+    goodsList: [],
+    goodsCount: 0
   }),
   actions: {
     async getPageListAction(payload: any) {
