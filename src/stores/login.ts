@@ -7,24 +7,29 @@ import {
 import type { IAccount } from "@/service/login/type";
 import localCache from "@/utils/cache";
 import router from "@/router";
-import { mapMenusToRouters } from "@/utils/map-menus";
+import { mapMenusToPermissions, mapMenusToRouters } from "@/utils/map-menus";
 
 const useLoginStore = defineStore("loginStore", {
   state: () => ({
     token: "",
     userInfo: {} as any,
     _userMenus: [] as any[],
+    permissions: [] as string[],
     get userMenus() {
       return this._userMenus;
     },
-    set userMenus(value) {
+    set userMenus(userMenus) {
+      this._userMenus = userMenus;
+
       // 注册动态路由
-      const routes = mapMenusToRouters(value);
+      const routes = mapMenusToRouters(userMenus);
       routes.forEach((route) => {
         router.addRoute("main", route);
       });
 
-      this._userMenus = value;
+      // 获取用户按钮权限
+      const permissions = mapMenusToPermissions(userMenus);
+      this.permissions = permissions;
     }
   }),
   actions: {
