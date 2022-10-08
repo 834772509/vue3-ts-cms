@@ -40,8 +40,25 @@ import { usePageSearch } from "@/hooks/use-page-search";
 import { usePageModal } from "@/hooks/use-page-modal";
 
 const [pageContentRef, handleResetClick, handleSearchClick] = usePageSearch();
-const [pageModalRef, defaultInfo, handleNewData, handleEditData] =
-  usePageModal();
+
+// pageModal相关的hook逻辑
+const newCallback = () => {
+  const passwordItem = modalConfig.formItems.find(
+    (item) => item.field === "password"
+  );
+  passwordItem!.isHidden = false;
+};
+const editCallback = () => {
+  const passwordItem = modalConfig.formItems.find(
+    (item) => item.field === "password"
+  );
+
+  passwordItem!.isHidden = true;
+};
+const [pageModalRef, defaultInfo, handleNewData, handleEditData] = usePageModal(
+  newCallback,
+  editCallback
+);
 </script>
 
 <style lang="less" scoped></style>

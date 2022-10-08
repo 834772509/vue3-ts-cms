@@ -6,6 +6,7 @@
       width="30%"
       center
       align-center
+      destroy-on-close
     >
       <base-form v-bind="modalConfig" v-model="formData"></base-form>
       <template #footer>
