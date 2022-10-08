@@ -8,7 +8,10 @@
     >
       <!-- 1.header中的插槽 -->
       <template #header>
-        <el-button type="primary" v-if="isCreate">新建用户</el-button>
+        <h3>数据列表</h3>
+        <el-button type="primary" v-if="isCreate" @click="handleNewClick"
+          >新建</el-button
+        >
       </template>
 
       <!-- 2.列中的插槽 -->
@@ -30,8 +33,9 @@
             :icon="Edit"
             text
             v-if="isUpdate"
-            >编辑</el-button
-          >
+            @click="handleEditClick(scope.row)"
+            >编辑
+          </el-button>
           <el-button
             type="primary"
             size="small"
@@ -79,6 +83,8 @@ const props = defineProps({
     require: true
   }
 });
+
+const eimt = defineEmits(["newBtnClick", "editBtnClick"]);
 
 const systemStore = useSystemStore();
 
@@ -143,6 +149,14 @@ function handleDeleteClick(item: any) {
       type: "success"
     });
   });
+}
+
+function handleNewClick() {
+  eimt("newBtnClick");
+}
+
+function handleEditClick(item: any) {
+  eimt("editBtnClick", item);
 }
 
 defineExpose({ getPageData });
