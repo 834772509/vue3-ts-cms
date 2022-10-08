@@ -38,10 +38,12 @@ import { contentTableConfig } from "./config/content.config";
 import { modalConfig } from "./config/modal.config";
 import { usePageSearch } from "@/hooks/use-page-search";
 import { usePageModal } from "@/hooks/use-page-modal";
+import useGlobalStore from "@/stores/global";
 
 const [pageContentRef, handleResetClick, handleSearchClick] = usePageSearch();
 
 // pageModal相关的hook逻辑
+// 处理隐藏密码的逻辑
 const newCallback = () => {
   const passwordItem = modalConfig.formItems.find(
     (item) => item.field === "password"
@@ -55,6 +57,23 @@ const editCallback = () => {
 
   passwordItem!.isHidden = true;
 };
+
+// 动态添加部门和角色列表
+const globalStore = useGlobalStore();
+
+const departmentItem = modalConfig.formItems.find(
+  (item) => item.field === "departmentId"
+);
+departmentItem!.options = globalStore.entireDepartment.map((item: any) => {
+  return { title: item.name, value: item.id };
+});
+
+const roleItem = modalConfig.formItems.find((item) => item.field === "roleId");
+roleItem!.options = globalStore.entireRole.map((item: any) => {
+  return { title: item.name, value: item.id };
+});
+
+// 调用hook获取公共
 const [pageModalRef, defaultInfo, handleNewData, handleEditData] = usePageModal(
   newCallback,
   editCallback
