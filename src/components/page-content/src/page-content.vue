@@ -22,7 +22,7 @@
         <span>{{ $filters.formatTime(scope.row.updateAt) }}</span>
       </template>
       <!-- 操作 -->
-      <template #action>
+      <template #action="scope">
         <div class="action-btns">
           <el-button
             type="primary"
@@ -38,6 +38,7 @@
             :icon="Delete"
             text
             v-if="isDelete"
+            @click="handleDeleteClick(scope.row)"
             >删除</el-button
           >
         </div>
@@ -62,6 +63,7 @@
 
 <script lang="ts" setup>
 import { ref, computed, watch } from "vue";
+import { ElMessage, ElMessageBox } from "element-plus";
 import { Delete, Edit } from "@element-plus/icons-vue";
 import BaseTable from "@/base-ui/table";
 import useSystemStore from "@/stores/main/system/system";
@@ -87,7 +89,7 @@ const isDelete = usePermission(props.pageName, "dalete");
 const isQuery = usePermission(props.pageName, "query");
 
 // 双向绑定pageInfo
-const pageInfo = ref({ currentPage: 0, pageSize: 10 });
+const pageInfo = ref({ currentPage: 1, pageSize: 10 });
 watch(pageInfo, () => getPageData());
 
 // 发送网络请求
@@ -98,7 +100,7 @@ const getPageData = (formData: any = {}) => {
   systemStore.getPageListAction({
     pageName: props.pageName,
     queryInfo: {
-      offset: pageInfo.value.currentPage * pageInfo.value.pageSize,
+      offset: (pageInfo.value.currentPage - 1) * pageInfo.value.pageSize,
       size: pageInfo.value.pageSize,
       ...formData
     }
@@ -124,6 +126,24 @@ const otherPropSlots = props?.contentTableConfig?.propList.filter(
     return true;
   }
 );
+
+// 删除/编辑/新建操作
+function handleDeleteClick(item: any) {
+  ElMessageBox.confirm("即将删除此数据，是否继续？", "提示", {
+    confirmButtonText: "确认",
+    cancelButtonText: "取消",
+    type: "warning"
+  }).then(() => {
+    systemStore.deletePageData({
+      pageName: props.pageName,
+      id: item.id
+    });
+    ElMessage({
+      message: "删除成功",
+      type: "success"
+    });
+  });
+}
 
 defineExpose({ getPageData });
 </script>
