@@ -7,5 +7,5 @@ export function formatUtcString(
   utcString: string,
   format: string = "YYYY-MM-DD HH:mm:ss"
 ) {
-  return dayjs.utc(utcString).format(format);
+  return dayjs.utc(utcString).utcOffset(8).format(format);
 }
