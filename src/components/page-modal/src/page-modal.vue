@@ -12,9 +12,7 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="dialogVisible = false">取消</el-button>
-          <el-button type="primary" @click="dialogVisible = false"
-            >确定</el-button
-          >
+          <el-button type="primary" @click="handleConfirmClick">确定</el-button>
         </span>
       </template>
     </el-dialog>
@@ -24,6 +22,8 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import BaseForm from "@/base-ui/form";
+import useSystemStore from "@/stores/main/system/system";
+import { ElMessage } from "element-plus";
 
 const props = defineProps({
   modalConfig: {
@@ -33,6 +33,10 @@ const props = defineProps({
   defaultInfo: {
     type: Object,
     default: () => ({})
+  },
+  pageName: {
+    type: String,
+    required: true
   }
 });
 
@@ -47,6 +51,27 @@ watch(
     }
   }
 );
+
+// 点击确定按钮的逻辑
+const systemStore = useSystemStore();
+function handleConfirmClick() {
+  dialogVisible.value = false;
+
+  if (Object.keys(props.defaultInfo).length) {
+    // 编辑状态
+    systemStore.editPageDataAction(props.pageName, props.defaultInfo.id, {
+      ...formData.value
+    });
+  } else {
+    // 新建状态
+    systemStore.createPageDataAction(props.pageName, { ...formData.value });
+  }
+
+  ElMessage({
+    message: "操作成功",
+    type: "success"
+  });
+}
 
 defineExpose({ dialogVisible });
 </script>

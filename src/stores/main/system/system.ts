@@ -1,5 +1,10 @@
 import { defineStore } from "pinia";
-import { getPageListData, deletePageData } from "@/service/main/system/system";
+import {
+  getPageListData,
+  deletePageData,
+  createPageData,
+  editPageData
+} from "@/service/main/system/system";
 
 const useSystemStore = defineStore("systemStore", {
   state: () => ({
@@ -44,6 +49,35 @@ const useSystemStore = defineStore("systemStore", {
       await deletePageData(pageUrl);
 
       // 3.重新请求最新的数据
+      this.getPageListAction({
+        pageName,
+        queryInfo: {
+          offset: 0,
+          size: 10
+        }
+      });
+    },
+    async createPageDataAction(pageName: string, newData: any) {
+      // 创建数据的请求
+      const pageUrl = `/${pageName}`;
+      await createPageData(pageUrl, newData);
+
+      // 请求最新的数据
+      this.getPageListAction({
+        pageName,
+        queryInfo: {
+          offset: 0,
+          size: 10
+        }
+      });
+    },
+
+    async editPageDataAction(pageName: string, id: any, editData: any) {
+      // 编辑数据的请求
+      const pageUrl = `/${pageName}/${id}`;
+      await editPageData(pageUrl, editData);
+
+      // 请求最新的数据
       this.getPageListAction({
         pageName,
         queryInfo: {

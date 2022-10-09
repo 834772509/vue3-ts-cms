@@ -25,7 +25,7 @@ export const modalConfig: IForm = {
       placeholder: "请输入密码"
     },
     {
-      field: "callphone",
+      field: "cellphone",
       type: "input",
       label: "电话号码",
       placeholder: "请输入电话号码"
