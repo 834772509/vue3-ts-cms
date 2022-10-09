@@ -8,6 +8,7 @@ import type { IAccount } from "@/service/login/type";
 import localCache from "@/utils/cache";
 import router from "@/router";
 import { mapMenusToPermissions, mapMenusToRouters } from "@/utils/map-menus";
+import useGlobalStore from "./global";
 
 const useLoginStore = defineStore("loginStore", {
   state: () => ({
@@ -54,6 +55,10 @@ const useLoginStore = defineStore("loginStore", {
       this.userMenus = userMenus;
       localCache.setCache("userMenus", userMenus);
 
+      // 发送初始化请求（完整的role/department）
+      const globalStore = useGlobalStore();
+      globalStore.getInitialDataAction();
+
       // 4. 跳转到首页
       router.push("/main");
     },
@@ -73,6 +78,8 @@ const useLoginStore = defineStore("loginStore", {
       if (userMenus) {
         this.userMenus = userMenus;
       }
+      const globalStore = useGlobalStore();
+      globalStore.getInitialDataAction();
     }
   }
 });

@@ -12,7 +12,9 @@
       <el-dropdown-menu>
         <el-dropdown-item>用户信息</el-dropdown-item>
         <el-dropdown-item>系统管理</el-dropdown-item>
-        <el-dropdown-item divided>退出登录</el-dropdown-item>
+        <el-dropdown-item @click="handleExitClick" divided
+          >退出登录</el-dropdown-item
+        >
       </el-dropdown-menu>
     </template>
   </el-dropdown>
@@ -22,9 +24,18 @@
 import { computed } from "vue";
 import { ArrowDown } from "@element-plus/icons-vue";
 import useLoginStore from "@/stores/login";
+import localCache from "@/utils/cache";
+import { useRouter } from "vue-router";
 
 const loginStore = useLoginStore();
 const name = computed(() => loginStore.userInfo.name);
+
+const router = useRouter();
+
+function handleExitClick() {
+  localCache.deleteCache("token");
+  router.push("/main");
+}
 </script>
 
 <style lang="less" scoped>
