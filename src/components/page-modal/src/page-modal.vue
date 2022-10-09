@@ -9,6 +9,7 @@
       destroy-on-close
     >
       <base-form v-bind="modalConfig" v-model="formData"></base-form>
+      <slot></slot>
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="dialogVisible = false">取消</el-button>
@@ -31,6 +32,10 @@ const props = defineProps({
     required: true
   },
   defaultInfo: {
+    type: Object,
+    default: () => ({})
+  },
+  otherInfo: {
     type: Object,
     default: () => ({})
   },
@@ -60,11 +65,15 @@ function handleConfirmClick() {
   if (Object.keys(props.defaultInfo).length) {
     // 编辑状态
     systemStore.editPageDataAction(props.pageName, props.defaultInfo.id, {
-      ...formData.value
+      ...formData.value,
+      ...props.otherInfo
     });
   } else {
     // 新建状态
-    systemStore.createPageDataAction(props.pageName, { ...formData.value });
+    systemStore.createPageDataAction(props.pageName, {
+      ...formData.value,
+      ...props.otherInfo
+    });
   }
 
   ElMessage({

@@ -4,7 +4,8 @@ import { getPageListData } from "@/service/main/system/system";
 const useGlobalStore = defineStore("globalStore", {
   state: () => ({
     entireDepartment: [],
-    entireRole: []
+    entireRole: [],
+    menuList: []
   }),
   actions: {
     async getInitialDataAction() {
@@ -21,9 +22,13 @@ const useGlobalStore = defineStore("globalStore", {
       });
       const { list: roleList } = roleResult.data;
 
+      const menuResult = await getPageListData("/menu/list", {});
+      const { list: menuList } = menuResult.data;
+
       // 保存数据
       this.entireDepartment = departmentList;
       this.entireRole = roleList;
+      this.menuList = menuList;
     }
   }
 });
