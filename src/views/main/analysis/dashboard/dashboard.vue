@@ -23,7 +23,9 @@
         </base-card>
       </el-col>
       <el-col :span="12">
-        <base-card title="分类商品的收藏"></base-card>
+        <base-card title="分类商品的收藏"
+          ><bar-echart v-bind="categoryGoodsFavor"></bar-echart
+        ></base-card>
       </el-col>
     </el-row>
   </div>
@@ -33,7 +35,12 @@
 import { computed } from "vue";
 import useDashboardStore from "@/stores/main/analysis/dashboard";
 import BaseCard from "@/base-ui/card";
-import { PieEchart, RoseEchart, LineEchart } from "@/components/page-echarts";
+import {
+  PieEchart,
+  RoseEchart,
+  LineEchart,
+  BarEchart
+} from "@/components/page-echarts";
 
 const dashboardStore = useDashboardStore();
 
@@ -56,6 +63,20 @@ const categoryGoodsSale = computed(() => {
   for (const item of categoryGoodsSale) {
     xLabels.push(item.name);
     values.push(item.goodsCount);
+  }
+
+  return { xLabels, values };
+});
+
+// 处理分类商品的收藏数据
+const categoryGoodsFavor = computed(() => {
+  const xLabels: string[] = [];
+  const values: any[] = [];
+  const categoryGoodsFavor = dashboardStore.categoryGoodsFavor;
+
+  for (const item of categoryGoodsFavor) {
+    xLabels.push(item.name);
+    values.push(item.goodsFavor);
   }
 
   return { xLabels, values };
