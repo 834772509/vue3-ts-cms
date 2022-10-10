@@ -7,10 +7,12 @@
         </base-card>
       </el-col>
       <el-col :span="10">
-        <base-card title="不同城市商品销量"></base-card>
+        <base-card title="不同城市商品销量"> </base-card>
       </el-col>
       <el-col :span="7">
-        <base-card title="分类商品数量（玫瑰图）"></base-card>
+        <base-card title="分类商品数量（玫瑰图）">
+          <rose-echart :roseData="categoryGoodsCount"></rose-echart
+        ></base-card>
       </el-col>
     </el-row>
 
@@ -29,7 +31,7 @@
 import { computed } from "vue";
 import useDashboardStore from "@/stores/main/analysis/dashboard";
 import BaseCard from "@/base-ui/card";
-import { PieEchart } from "@/components/page-echarts";
+import { PieEchart, RoseEchart } from "@/components/page-echarts";
 
 // 请求数据
 const dashboardStore = useDashboardStore();
