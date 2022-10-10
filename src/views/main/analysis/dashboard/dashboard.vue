@@ -18,7 +18,9 @@
 
     <el-row :gutter="10" class="content-row">
       <el-col :span="12">
-        <base-card title="分类商品的销量"> </base-card>
+        <base-card title="分类商品的销量">
+          <line-echart v-bind="categoryGoodsSale"></line-echart>
+        </base-card>
       </el-col>
       <el-col :span="12">
         <base-card title="分类商品的收藏"></base-card>
@@ -31,16 +33,32 @@
 import { computed } from "vue";
 import useDashboardStore from "@/stores/main/analysis/dashboard";
 import BaseCard from "@/base-ui/card";
-import { PieEchart, RoseEchart } from "@/components/page-echarts";
+import { PieEchart, RoseEchart, LineEchart } from "@/components/page-echarts";
+
+const dashboardStore = useDashboardStore();
 
 // 请求数据
-const dashboardStore = useDashboardStore();
 dashboardStore.getDashboardDataAction();
 
+// 获取数据
 const categoryGoodsCount = computed(() => {
   return dashboardStore.categoryGoodsCount.map((item: any) => {
     return { name: item.name, value: item.goodsCount };
   });
+});
+
+// 处理分类商品的销量数据
+const categoryGoodsSale = computed(() => {
+  const xLabels: string[] = [];
+  const values: any[] = [];
+  const categoryGoodsSale = dashboardStore.categoryGoodsSale;
+
+  for (const item of categoryGoodsSale) {
+    xLabels.push(item.name);
+    values.push(item.goodsCount);
+  }
+
+  return { xLabels, values };
 });
 </script>
 

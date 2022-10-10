@@ -22,11 +22,11 @@ const useDashboardStore = defineStore("dashboardStore", {
       const categoryCountResult = await getCategoryGoodsCount();
       this.categoryGoodsCount = categoryCountResult.data;
 
-      const categorySaleResult = await getCategoryGoodsFavor();
+      const categorySaleResult = await getCategoryGoodsSale();
       this.categoryGoodsSale = categorySaleResult.data;
 
-      const categoryGoodsSale = await getCategoryGoodsSale();
-      this.categoryGoodsFavor = categoryGoodsSale.data;
+      const categoryFavorResult = await getCategoryGoodsFavor();
+      this.categoryGoodsFavor = categoryFavorResult.data;
 
       const addressGoodsResult = await getAddressGoodsSale();
       this.addressGoodsSale = addressGoodsResult.data;
