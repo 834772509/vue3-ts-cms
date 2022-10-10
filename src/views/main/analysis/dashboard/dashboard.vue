@@ -1,50 +1,38 @@
 <template>
   <div class="dashboard">
-    <h2>dashboard</h2>
-    <div ref="dirRef" style="width: 600px; height: 500px"></div>
+    <el-row :gutter="10">
+      <el-col :span="7">
+        <base-card title="分类商品数量（饼图）"></base-card>
+      </el-col>
+      <el-col :span="10">
+        <base-card title="不同城市商品销量"></base-card>
+      </el-col>
+      <el-col :span="7">
+        <base-card title="分类商品数量（玫瑰图）"></base-card>
+      </el-col>
+    </el-row>
+
+    <el-row :gutter="10" class="content-row">
+      <el-col :span="12">
+        <base-card title="分类商品的销量"></base-card>
+      </el-col>
+      <el-col :span="12">
+        <base-card title="分类商品的收藏"></base-card>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from "vue";
-import * as echarts from "echarts";
+import useDashboardStore from "@/stores/main/analysis/dashboard";
+import BaseCard from "@/base-ui/card";
 
-const dirRef = ref<HTMLElement>();
-
-onMounted(() => {
-  // 1.初始化echarts的实例
-  const echartInstance = echarts.init(dirRef.value!, "light", {
-    renderer: "svg"
-  });
-  // 2.编写配置文件
-  const option = {
-    title: {
-      text: "ECharts 入门示例"
-    },
-    tooltip: {
-      trigger: "axis",
-      axisPointer: {
-        type: "cross"
-      }
-    },
-    legend: {
-      data: ["销量"]
-    },
-    xAxis: {
-      data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
-    },
-    yAxis: {},
-    series: [
-      {
-        name: "销量",
-        type: "bar",
-        data: [5, 20, 36, 10, 10, 20]
-      }
-    ]
-  };
-  // 3.设置配置，并且开始绘制
-  echartInstance.setOption(option);
-});
+const dashboardStore = useDashboardStore();
+dashboardStore.getDashboardDataAction();
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.content-row {
+  margin-top: 20px;
+}
+</style>
