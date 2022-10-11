@@ -63,7 +63,7 @@ const props = defineProps({
   /// 表格名称
   title: {
     type: String,
-    required: true
+    default: ""
   },
   /// 列表数据
   listData: {

@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps, withDefaults } from "vue";
+import { computed, withDefaults } from "vue";
 import BaseEchart from "@/base-ui/echart";
 import type { IDataType } from "../types";
 import { convertData } from "../utils/convert-data";

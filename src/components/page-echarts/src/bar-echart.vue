@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import * as echarts from "echarts";
-import { computed, defineProps, withDefaults } from "vue";
+import { computed, withDefaults } from "vue";
 import BaseEchart from "@/base-ui/echart";
 
 const props = withDefaults(

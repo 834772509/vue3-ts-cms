@@ -86,7 +86,7 @@ const categoryGoodsFavor = computed(() => {
 });
 
 const addressGoodsSale = computed(() => {
-  return dashboardStore.addressGoodsSale.map((item) => {
+  return dashboardStore.addressGoodsSale.map((item: any) => {
     return { name: item.address, value: item.count };
   });
 });
