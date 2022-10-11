@@ -7,7 +7,9 @@
         </base-card>
       </el-col>
       <el-col :span="10">
-        <base-card title="不同城市商品销量"> </base-card>
+        <base-card title="不同城市商品销量">
+          <map-echart :mapData="addressGoodsSale"></map-echart
+        ></base-card>
       </el-col>
       <el-col :span="7">
         <base-card title="分类商品数量（玫瑰图）">
@@ -39,7 +41,8 @@ import {
   PieEchart,
   RoseEchart,
   LineEchart,
-  BarEchart
+  BarEchart,
+  MapEchart
 } from "@/components/page-echarts";
 
 const dashboardStore = useDashboardStore();
@@ -80,6 +83,12 @@ const categoryGoodsFavor = computed(() => {
   }
 
   return { xLabels, values };
+});
+
+const addressGoodsSale = computed(() => {
+  return dashboardStore.addressGoodsSale.map((item) => {
+    return { name: item.address, value: item.count };
+  });
 });
 </script>
 
