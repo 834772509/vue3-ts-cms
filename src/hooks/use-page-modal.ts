@@ -30,5 +30,5 @@ export function usePageModal(
     editCallBack && editCallBack(item);
   };
 
-  return [pageModalRef, defaultInfo, handleNewData, handleEditData];
+  return { pageModalRef, defaultInfo, handleNewData, handleEditData };
 }

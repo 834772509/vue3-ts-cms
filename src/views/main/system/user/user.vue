@@ -41,7 +41,7 @@ import { usePageSearch } from "@/hooks/use-page-search";
 import { usePageModal } from "@/hooks/use-page-modal";
 import useGlobalStore from "@/stores/global";
 
-const [pageContentRef, handleResetClick, handleSearchClick] = usePageSearch();
+const { pageContentRef, handleResetClick, handleSearchClick } = usePageSearch();
 
 // pageModal相关的hook逻辑
 // 处理隐藏密码的逻辑
@@ -75,10 +75,8 @@ roleItem!.options = globalStore.entireRole.map((item: any) => {
 });
 
 // 调用hook获取公共
-const [pageModalRef, defaultInfo, handleNewData, handleEditData] = usePageModal(
-  newCallback,
-  editCallback
-);
+const { pageModalRef, defaultInfo, handleNewData, handleEditData } =
+  usePageModal(newCallback, editCallback);
 </script>
 
 <style lang="less" scoped></style>

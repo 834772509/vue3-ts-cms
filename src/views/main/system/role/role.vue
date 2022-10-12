@@ -54,11 +54,9 @@ function editCallback(item: any) {
   nextTick(() => treeRef.value?.setCheckedKeys(leafKeys, false));
 }
 
-const [pageContentRef, handleResetClick, handleSearchClick] = usePageSearch();
-const [pageModalRef, defaultInfo, handleNewData, handleEditData] = usePageModal(
-  undefined,
-  editCallback
-);
+const { pageContentRef, handleResetClick, handleSearchClick } = usePageSearch();
+const { pageModalRef, defaultInfo, handleNewData, handleEditData } =
+  usePageModal(undefined, editCallback);
 
 const globalStore = useGlobalStore();
 const menus = computed(() => globalStore.menuList);

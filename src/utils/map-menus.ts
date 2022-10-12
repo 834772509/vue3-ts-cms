@@ -1,6 +1,4 @@
 import type { IBreadcrumb } from "@/base-ui/breadcrumb";
-import type menu from "@/router/main/system/menu/menu";
-import type menu from "@/router/main/system/menu/menu";
 import type { RouteRecordRaw } from "vue-router";
 
 let firstMenu: any = null;
@@ -81,7 +79,7 @@ export function mapMenusToPermissions(userMenus: any[]) {
 
 export function menuMapLeafKeys(menuList: any[]) {
   const leftKeys: number[] = [];
-  const _recurseGetLeft = (menuList: anu[]) => {
+  const _recurseGetLeft = (menuList: any[]) => {
     for (const menu of menuList) {
       if (menu.children) {
         _recurseGetLeft(menu.children);
