@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import {
+  getAmountList,
   getCategoryGoodsCount,
   getCategoryGoodsSale,
   getCategoryGoodsFavor,
@@ -8,6 +9,8 @@ import {
 
 const useDashboardStore = defineStore("dashboardStore", {
   state: () => ({
+    // 数据统计信息
+    topPanelDatas: [] as any[],
     // 每个商品的个数
     categoryGoodsCount: [] as any[],
     // 每个分类商品的销量
@@ -19,6 +22,9 @@ const useDashboardStore = defineStore("dashboardStore", {
   }),
   actions: {
     async getDashboardDataAction() {
+      const topPanelDatasResult = await getAmountList();
+      this.topPanelDatas = topPanelDatasResult.data;
+
       const categoryCountResult = await getCategoryGoodsCount();
       this.categoryGoodsCount = categoryCountResult.data;
 

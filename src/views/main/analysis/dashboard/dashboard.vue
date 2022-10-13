@@ -1,5 +1,19 @@
 <template>
   <div class="dashboard">
+    <!-- 顶部数据统计 -->
+    <el-row :gutter="10">
+      <el-col
+        :md="12"
+        :lg="6"
+        :xl="6"
+        v-for="item in topPanelData"
+        :key="item.title"
+      >
+        <statistical-panel :panelData="item" />
+      </el-col>
+    </el-row>
+
+    <!-- 中间数据图表 -->
     <el-row :gutter="10">
       <el-col :span="7">
         <base-card title="分类商品数量（饼图）">
@@ -18,6 +32,7 @@
       </el-col>
     </el-row>
 
+    <!-- 底部数据图表 -->
     <el-row :gutter="10" class="content-row">
       <el-col :span="12">
         <base-card title="分类商品的销量">
@@ -37,6 +52,7 @@
 import { computed } from "vue";
 import useDashboardStore from "@/stores/main/analysis/dashboard";
 import BaseCard from "@/base-ui/card";
+import StatisticalPanel from "@/components/statistical-panel";
 import {
   PieEchart,
   RoseEchart,
@@ -51,6 +67,9 @@ const dashboardStore = useDashboardStore();
 dashboardStore.getDashboardDataAction();
 
 // 获取数据
+// 获取顶部PanelData
+const topPanelData = computed(() => dashboardStore.topPanelDatas);
+// 获取图标数据
 const categoryGoodsCount = computed(() => {
   return dashboardStore.categoryGoodsCount.map((item: any) => {
     return { name: item.name, value: item.goodsCount };
@@ -93,6 +112,9 @@ const addressGoodsSale = computed(() => {
 </script>
 
 <style lang="less" scoped>
+.dashboard {
+  background-color: #f5f5f5;
+}
 .content-row {
   margin-top: 20px;
 }

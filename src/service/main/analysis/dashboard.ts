@@ -1,10 +1,18 @@
 import request from "../../index";
 
 enum DashboardAPI {
+  amountList = "/goods/amount/list",
   categoryGoodsCount = "/goods/category/count",
   categoryGoodsSale = "/goods/category/sale",
   categoryGoodsFavor = "/goods/category/favor",
   addressGoodsSale = "/goods/address/sale"
+}
+
+// 请求商品数据统计的数量
+export function getAmountList() {
+  return request.get({
+    url: DashboardAPI.amountList
+  });
 }
 
 // 请求每个商品的个数
