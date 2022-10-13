@@ -22,9 +22,14 @@ const useSystemStore = defineStore("systemStore", {
 
     // 菜单管理数据
     menuList: [],
-    menuCount: 0
+    menuCount: 0,
+
+    // 部门管理数据
+    departmentList: [],
+    departmentCount: 0
   }),
   actions: {
+    // 获取数据的请求
     async getPageListAction(payload: any) {
       // 1.获取pageUrl
       const pageName = payload.pageName;
@@ -40,6 +45,7 @@ const useSystemStore = defineStore("systemStore", {
         [`${pageName.toLowerCase()}Count`]: totalCount
       });
     },
+    // 删除数据的请求
     async deletePageData(payload: any) {
       // 1.获取pageName和id
       const { pageName, id } = payload;
@@ -57,8 +63,8 @@ const useSystemStore = defineStore("systemStore", {
         }
       });
     },
+    // 创建数据的请求
     async createPageDataAction(pageName: string, newData: any) {
-      // 创建数据的请求
       const pageUrl = `/${pageName}`;
       await createPageData(pageUrl, newData);
 
@@ -71,9 +77,8 @@ const useSystemStore = defineStore("systemStore", {
         }
       });
     },
-
+    // 编辑数据的请求
     async editPageDataAction(pageName: string, id: any, editData: any) {
-      // 编辑数据的请求
       const pageUrl = `/${pageName}/${id}`;
       await editPageData(pageUrl, editData);
 
