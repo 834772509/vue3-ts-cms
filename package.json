@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "prettier": "prettier --write .",
     "prepare": "husky install",
-    "commit": "cz & git push"
+    "commit": "cz && git push"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.9",
@@ -51,7 +51,7 @@
   },
   "config": {
     "commitizen": {
-      "path": "./node_modules/cz-customizable"
+      "path": "./node_modules/cz-conventional-changelog"
     }
   }
 }
