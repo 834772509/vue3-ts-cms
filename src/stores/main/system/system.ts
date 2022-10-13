@@ -26,7 +26,11 @@ const useSystemStore = defineStore("systemStore", {
 
     // 部门管理数据
     departmentList: [],
-    departmentCount: 0
+    departmentCount: 0,
+
+    // 商品类别数据
+    categoryList: [],
+    categoryCount: 0
   }),
   actions: {
     // 获取数据的请求
