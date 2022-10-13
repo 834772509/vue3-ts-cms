@@ -50,7 +50,6 @@ function handleResetClick() {
 
 // 搜索按钮
 function handleSearchClick() {
-  console.log("点击按钮");
   emit("searchBtnClick", formData.value);
 }
 </script>

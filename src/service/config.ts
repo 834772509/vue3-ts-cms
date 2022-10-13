@@ -1,13 +1,15 @@
-let BASE_URL: string;
-let TIME_OUT: number = 3000;
+// 超时时间
+export const TIME_OUT: number = 3000;
 
-if (import.meta.env.MODE === "development") {
-  BASE_URL = "http://152.136.185.210:5000";
-} else if (import.meta.env.MODE === "production") {
-  BASE_URL = "http://152.136.185.210:5000";
-} else {
-  // test
-  BASE_URL = "http://httpbin.org/";
-}
+// 区分环境变量(判断环境变量)
+// if (import.meta.env.MODE === "development") {
+//   BASE_URL = "";
+// } else if (import.meta.env.MODE === "production") {
+//   BASE_URL = "";
+// } else {
+//   // test
+//   BASE_URL = "";
+// }
 
-export { BASE_URL, TIME_OUT };
+// 区分环境变量(读取环境变量文件)
+export const BASE_URL = import.meta.env.VITE_BASE_URL;

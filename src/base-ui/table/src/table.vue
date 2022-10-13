@@ -78,8 +78,7 @@ const props = defineProps({
   /// 表格属性
   propList: {
     type: Array as any,
-    default: () => ({})
-    // required: true
+    default: () => []
   },
   /// 显示列表序号
   showIndexColumn: {
@@ -104,8 +103,6 @@ const props = defineProps({
     default: true
   }
 });
-
-console.log(props.propList);
 
 const emit = defineEmits(["selectionChange", "update:page"]);
 
