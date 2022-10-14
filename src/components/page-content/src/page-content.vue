@@ -8,7 +8,13 @@
     >
       <!-- 1.header中的插槽 -->
       <template #header>
-        <h3>数据列表</h3>
+        <h3>
+          {{
+            props.contentTableConfig!.title
+              ? props.contentTableConfig!.title
+              : "数据列表"
+          }}
+        </h3>
         <el-button type="primary" v-if="isCreate" @click="handleNewClick"
           >新建</el-button
         >
@@ -123,7 +129,7 @@ const dataCount = computed(() =>
 );
 
 // 获取其他的动态插槽
-const otherPropSlots = props?.contentTableConfig?.propList.filter(
+const otherPropSlots: any[] = props?.contentTableConfig?.propList.filter(
   (item: any) => {
     if (item.slotName === "createAt") return false;
     if (item.slotName === "updateAt") return false;

@@ -30,7 +30,11 @@ const useSystemStore = defineStore("systemStore", {
 
     // 商品类别数据
     categoryList: [],
-    categoryCount: 0
+    categoryCount: 0,
+
+    // 故事列表数据
+    storyList: [],
+    storyCount: 0
   }),
   actions: {
     // 获取数据的请求
