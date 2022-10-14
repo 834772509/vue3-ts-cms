@@ -27,7 +27,7 @@ const props = defineProps({
     default: 1
   },
   tableDatas: {
-    type: Array,
+    type: Array as unknown as any[],
     default: () => []
   }
 });
