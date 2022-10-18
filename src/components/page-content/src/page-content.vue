@@ -97,7 +97,7 @@ const systemStore = useSystemStore();
 // 获取操作的权限
 const isCreate = usePermission(props.pageName!, "create");
 const isUpdate = usePermission(props.pageName!, "update");
-const isDelete = usePermission(props.pageName!, "dalete");
+const isDelete = usePermission(props.pageName!, "delete");
 const isQuery = usePermission(props.pageName!, "query");
 
 // 双向绑定pageInfo
