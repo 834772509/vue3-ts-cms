@@ -26,8 +26,8 @@ const rules = {
       trigger: "blur"
     },
     {
-      pattern: /^[a-z0-9]{8,10}$/,
-      message: "用户名必须是8-10个字母或数字",
+      pattern: /^[a-z0-9]{5,10}$/,
+      message: "用户名必须是5-10个字母或数字",
       trigger: "blur"
     }
   ],
@@ -38,8 +38,8 @@ const rules = {
       trigger: "blur"
     },
     {
-      pattern: /^[a-z0-9]{6,}$/,
-      message: "密码必须是6位以上的字母或数字",
+      pattern: /^[a-z0-9]{5,}$/,
+      message: "密码必须是5位以上的字母或数字",
       trigger: "blur"
     }
   ]
